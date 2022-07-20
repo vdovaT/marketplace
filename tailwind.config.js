@@ -164,6 +164,7 @@ const primaryColors = {
 }
 
 module.exports = {
+  presetColors: primaryColors,
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
