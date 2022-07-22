@@ -244,10 +244,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@ethersproject/abi@5.6.4", "@ethersproject/abi@^5.6.3":
-  version "5.6.4"
-  resolved "https://registry.yarnpkg.com/@ethersproject/abi/-/abi-5.6.4.tgz#f6e01b6ed391a505932698ecc0d9e7a99ee60362"
-  integrity sha512-TTeZUlCeIHG6527/2goZA6gW5F8Emoc7MrZDC7hhP84aRGvW3TEdTnZR08Ls88YXM1m2SuK42Osw/jSi3uO8gg==
+"@ethersproject/abi@5.6.3", "@ethersproject/abi@^5.6.3":
+  version "5.6.3"
+  resolved "https://registry.yarnpkg.com/@ethersproject/abi/-/abi-5.6.3.tgz#2d643544abadf6e6b63150508af43475985c23db"
+  integrity sha512-CxKTdoZY4zDJLWXG6HzNH6znWK0M79WzzxHegDoecE3+K32pzfHOzuXg2/oGSTecZynFgpkjYXNPOqXVJlqClw==
   dependencies:
     "@ethersproject/address" "^5.6.1"
     "@ethersproject/bignumber" "^5.6.2"
@@ -412,10 +412,10 @@
   resolved "https://registry.yarnpkg.com/@ethersproject/logger/-/logger-5.6.0.tgz#d7db1bfcc22fd2e4ab574cba0bb6ad779a9a3e7a"
   integrity sha512-BiBWllUROH9w+P21RzoxJKzqoqpkyM1pRnEKG69bulE9TSQD8SAIvTQqIMZmmCO8pUNkgLP1wndX1gKghSpBmg==
 
-"@ethersproject/networks@5.6.4", "@ethersproject/networks@^5.6.3":
-  version "5.6.4"
-  resolved "https://registry.yarnpkg.com/@ethersproject/networks/-/networks-5.6.4.tgz#51296d8fec59e9627554f5a8a9c7791248c8dc07"
-  integrity sha512-KShHeHPahHI2UlWdtDMn2lJETcbtaJge4k7XSjDR9h79QTd6yQJmv6Cp2ZA4JdqWnhszAOLSuJEd9C0PRw7hSQ==
+"@ethersproject/networks@5.6.3", "@ethersproject/networks@^5.6.3":
+  version "5.6.3"
+  resolved "https://registry.yarnpkg.com/@ethersproject/networks/-/networks-5.6.3.tgz#3ee3ab08f315b433b50c99702eb32e0cf31f899f"
+  integrity sha512-QZxRH7cA5Ut9TbXwZFiCyuPchdWi87ZtVNHWZd0R6YFgYtes2jQ3+bsslJ0WdyDe0i6QumqtoYqvY3rrQFRZOQ==
   dependencies:
     "@ethersproject/logger" "^5.6.0"
 
@@ -1609,9 +1609,9 @@
     "@babel/runtime" "^7.13.10"
 
 "@rainbow-me/rainbowkit@^0.4.1":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-0.4.3.tgz#5981f5b22f4d6811c1bc1716697e56507b2bf519"
-  integrity sha512-H1SEGb5MOMjcdgxHoPKc/iDooOOeXRjYWUyIIt5xX6t450rwEv9yg8dHH1gs5lMKM9KgDB39WYz7UPDMR1OmOw==
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-0.4.2.tgz#4a9885b542a49d56283d5b32e23f3e5ae61edaaa"
+  integrity sha512-LHRrCd4zidOPrdbDGAEoTEMRw9NV8RNaqW3DiLZNrVc8xdENTFagX3IikuUk6iUgcFuRk85K+hRvUTIrUdAO4Q==
   dependencies:
     "@vanilla-extract/css" "1.7.0"
     "@vanilla-extract/dynamic" "2.0.2"
@@ -1642,17 +1642,17 @@
   dependencies:
     "@react-hookz/deep-equal" "^1.0.2"
 
-"@reservoir0x/reservoir-kit-client@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@reservoir0x/reservoir-kit-client/-/reservoir-kit-client-0.0.1.tgz#6856e6373059f8b22e04f5b2c0af9eecf940befb"
-  integrity sha512-9T8/jHW0X5LhpzxkAGhoyzxgVN4gKn1jsSLx1qFZCxF8LHt3bxJZgsT8lDmyrEDHzMYAOJ4yBDchzLf0W0jAqg==
+"@reservoir0x/reservoir-kit-client@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@reservoir0x/reservoir-kit-client/-/reservoir-kit-client-0.0.2.tgz#3a08c16a08acb0974ba4b5053eb3348cc9e2be3f"
+  integrity sha512-hc5FvTtmJNJ0Md6ZxV7/skWsoXCseborZcNtYAs8QpzxQIs6v3VojKw3hB4/Rvo/znqXqY/nmux0KHWGQg7eLw==
   dependencies:
     axios "^0.27.2"
 
-"@reservoir0x/reservoir-kit-ui@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@reservoir0x/reservoir-kit-ui/-/reservoir-kit-ui-0.0.6.tgz#277439619f6a43cc73dabea821529525e5e04780"
-  integrity sha512-pWODRjQHU2KUQOXano2p8tMKmAynwoxa+R5kzyegevGMhy/JFdNC7q5UmFLTlgyJmj73cMdfZIHhbHVDCcbGCg==
+"@reservoir0x/reservoir-kit-ui@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@reservoir0x/reservoir-kit-ui/-/reservoir-kit-ui-0.0.7.tgz#9fad4649702f27e1d4c7c9a01d4f191a2dc131b2"
+  integrity sha512-6HCtxRP3aFOaiboIr4WjFH5fTns1G9G+nd7jItx6YPxZB0NUzO18gLojPCBMg+0lzV3PgO0BbpKb/iedK1iq4g==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.1.1"
     "@fortawesome/free-solid-svg-icons" "^6.1.1"
@@ -1661,14 +1661,14 @@
     "@radix-ui/react-dialog" "0.1.8-rc.50"
     "@radix-ui/react-popover" "0.1.7-rc.46"
     "@rainbow-me/rainbowkit" "^0.4.1"
-    "@reservoir0x/reservoir-kit-client" "0.0.1"
+    "@reservoir0x/reservoir-kit-client" "0.0.2"
     "@stitches/react" "^1.2.8"
     framer-motion "^6.4.2"
 
 "@reservoir0x/sdk@^0.0.123":
   version "0.0.123"
   resolved "https://registry.yarnpkg.com/@reservoir0x/sdk/-/sdk-0.0.123.tgz#9a3ceeea54175b4965eb7930410a277a588765da"
-  integrity sha512-tnC+QXqYHPFxLE3oQ8wzi7M+QAlkRr5qpRMO9a7LCkPn9xcgB5Bm21K9a+VvhuycZDg51rPcJyqUvOol4nF1RA==
+  integrity "sha1-mjzu6lQXW0ll63kwQQoneliHZdo= sha512-tnC+QXqYHPFxLE3oQ8wzi7M+QAlkRr5qpRMO9a7LCkPn9xcgB5Bm21K9a+VvhuycZDg51rPcJyqUvOol4nF1RA=="
   dependencies:
     ethers "^5.6.8"
     merkletreejs "0.2.31"
@@ -2372,7 +2372,12 @@ bn.js@^4.11.0, bn.js@^4.11.8, bn.js@^4.11.9:
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.12.0.tgz#775b3f278efbb9718eec7361f483fb36fbbfea88"
   integrity sha512-c98Bf3tPniI+scsdk237ku1Dc3ujXQTSgyiPUDEOe7tRkhrqridvh8klBv0HCEso1OLOYcHuCv/cS6DNxKH+ZA==
 
-bn.js@^5.1.1, bn.js@^5.1.2, bn.js@^5.2.0, bn.js@^5.2.1:
+bn.js@^5.1.1, bn.js@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.npmjs.org/bn.js/-/bn.js-5.2.0.tgz"
+  integrity sha512-D7iWRBvnZE8ecXiLj/9wbxH7Tk79fAh8IHaTNq1RWRixsS02W+5qS+iE9yq6RYl0asXx5tw0bLhmT5pIfbSquw==
+
+bn.js@^5.1.2, bn.js@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.2.1.tgz#0bc527a6a0d18d0aa8d5b0538ce4a77dccfa7b70"
   integrity sha512-eXRvHzWyYPBuB4NBy0cmYQjGitUrtqwbvlzP3G6VFnNRbsZQIxQ10PbKKHt8gZ/HW/D/747aDl+QkDqg3KQLMQ==
@@ -3361,11 +3366,11 @@ ethereumjs-util@^7.1.0:
     rlp "^2.2.4"
 
 ethers@^5.6.8:
-  version "5.6.9"
-  resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.6.9.tgz#4e12f8dfcb67b88ae7a78a9519b384c23c576a4d"
-  integrity sha512-lMGC2zv9HC5EC+8r429WaWu3uWJUCgUCt8xxKCFqkrFuBDZXDYIdzDUECxzjf2BMF8IVBByY1EBoGSL3RTm8RA==
+  version "5.6.8"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.6.8.tgz#d36b816b4896341a80a8bbd2a44e8cb6e9b98dd4"
+  integrity sha512-YxIGaltAOdvBFPZwIkyHnXbW40f1r8mHUgapW6dxkO+6t7H6wY8POUn0Kbxrd/N7I4hHxyi7YCddMAH/wmho2w==
   dependencies:
-    "@ethersproject/abi" "5.6.4"
+    "@ethersproject/abi" "5.6.3"
     "@ethersproject/abstract-provider" "5.6.1"
     "@ethersproject/abstract-signer" "5.6.2"
     "@ethersproject/address" "5.6.1"
@@ -3380,7 +3385,7 @@ ethers@^5.6.8:
     "@ethersproject/json-wallets" "5.6.1"
     "@ethersproject/keccak256" "5.6.1"
     "@ethersproject/logger" "5.6.0"
-    "@ethersproject/networks" "5.6.4"
+    "@ethersproject/networks" "5.6.3"
     "@ethersproject/pbkdf2" "5.6.1"
     "@ethersproject/properties" "5.6.0"
     "@ethersproject/providers" "5.6.8"
