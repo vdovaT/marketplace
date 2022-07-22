@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import LoadingCard from './LoadingCard'
 import { SWRInfiniteResponse } from 'swr/infinite/dist/infinite'
 import Link from 'next/link'
@@ -7,11 +7,15 @@ import { useInView } from 'react-intersection-observer'
 import FormatEth from './FormatEth'
 import Masonry from 'react-masonry-css'
 import { paths } from '@reservoir0x/reservoir-kit-client'
-import FormatWEth from 'components/FormatWEth'
 import Image from 'next/image'
 import { FaShoppingCart } from 'react-icons/fa'
 import { atom, useRecoilState, useRecoilValue } from 'recoil'
-import { recoilTokensMap } from './CartMenu'
+import { setToast } from './token/setToast'
+import { useSigner } from 'wagmi'
+import { GlobalContext } from 'context/GlobalState'
+import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
+import { Execute } from '@reservoir0x/reservoir-kit-client'
+import { recoilCartTotal, recoilTokensMap } from './CartMenu'
 
 const SOURCE_ID = process.env.NEXT_PUBLIC_SOURCE_ID
 const NAVBAR_LOGO = process.env.NEXT_PUBLIC_NAVBAR_LOGO
@@ -36,8 +40,15 @@ export const recoilCartTokens = atom<Tokens>({
 })
 
 const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
+  const client = useReservoirClient()
   const [cartTokens, setCartTokens] = useRecoilState(recoilCartTokens)
   const tokensMap = useRecoilValue(recoilTokensMap)
+  const [waitingTx, setWaitingTx] = useState(false)
+  const { data: signer } = useSigner()
+  const [open, setOpen] = useState(false)
+  const { dispatch } = useContext(GlobalContext)
+  const cartTotal = useRecoilValue(recoilCartTotal)
+  const [steps, setSteps] = useState<Execute['steps']>()
   const { data, error } = tokens
 
   // Reference: https://swr.vercel.app/examples/infinite-loading
@@ -47,6 +58,65 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
     data &&
     (data[data.length - 1]?.tokens?.length === 0 ||
       data[data.length - 1]?.continuation === null)
+
+  type TokenData = {
+    contract: string
+    tokenId: string
+  }
+
+  const execute = async (token: TokenData, expectedPrice: number) => {
+    setWaitingTx(true)
+    if (!signer) {
+      throw 'Missing a signer'
+    }
+    if (!client) throw 'Reservoir Client not initialized.'
+
+    await client.actions
+      .buyToken({
+        expectedPrice,
+        tokens: [token],
+        signer,
+        onProgress: setSteps,
+      })
+      .then(() => tokens.mutate())
+      .catch((err: any) => {
+        if (err?.type === 'price mismatch') {
+          setToast({
+            kind: 'error',
+            message: 'Price was greater than expected.',
+            title: 'Could not buy token',
+          })
+          return
+        }
+
+        if (err?.message === 'Not enough ETH balance') {
+          setToast({
+            kind: 'error',
+            message: 'You have insufficient funds to buy this token.',
+            title: 'Not enough ETH balance',
+          })
+          return
+        }
+        // Handle user rejection
+        if (err?.code === 4001) {
+          setOpen(false)
+          setSteps(undefined)
+          setToast({
+            kind: 'error',
+            message: 'You have canceled the transaction.',
+            title: 'User canceled transaction',
+          })
+          return
+        }
+        setToast({
+          kind: 'error',
+          message: 'The transaction was not completed.',
+          title: 'Could not buy token',
+        })
+      })
+
+    setWaitingTx(false)
+  }
 
   return (
     <Masonry
@@ -155,7 +225,23 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
                   </div>
                   <div className="grid grid-cols-2">
                     <button
-                      disabled={!token?.floorAskPrice}
+                      onClick={() => {
+                        debugger
+                        if (token.floorAskPrice) {
+                          if (!signer) {
+                            dispatch({ type: 'CONNECT_WALLET', payload: true })
+                            return
+                          }
+                          execute(
+                            {
+                              contract: token.contract,
+                              tokenId: token.tokenId,
+                            },
+                            token.floorAskPrice
+                          )
+                        }
+                      }}
+                      disabled={waitingTx || !token?.floorAskPrice}
                       className="btn-primary-fill reservoir-subtitle flex h-[40px] items-center justify-center whitespace-nowrap rounded-none text-white"
                     >
                       Buy Now
