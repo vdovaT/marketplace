@@ -7,6 +7,7 @@ import { useInView } from 'react-intersection-observer'
 import FormatEth from './FormatEth'
 import Masonry from 'react-masonry-css'
 import { paths } from '@reservoir0x/reservoir-kit-client'
+import { Execute } from '@reservoir0x/reservoir-kit-client'
 import Image from 'next/image'
 import { FaShoppingCart } from 'react-icons/fa'
 import { atom, useRecoilState, useRecoilValue } from 'recoil'
@@ -14,7 +15,6 @@ import { setToast } from './token/setToast'
 import { useNetwork, useSigner, useSwitchNetwork } from 'wagmi'
 import { GlobalContext } from 'context/GlobalState'
 import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
-import { Execute } from '@reservoir0x/reservoir-kit-client'
 import { recoilCartTotal, recoilTokensMap } from './CartMenu'
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
@@ -51,6 +51,7 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
   const cartTotal = useRecoilValue(recoilCartTotal)
   const [steps, setSteps] = useState<Execute['steps']>()
   const { chain: activeChain } = useNetwork()
+  const reservoirClient = useReservoirClient()
   const { switchNetworkAsync } = useSwitchNetwork({
     chainId: CHAIN_ID ? +CHAIN_ID : undefined,
   })
@@ -79,7 +80,9 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
     }
     if (!client) throw 'Reservoir Client not initialized.'
 
-    await client.actions
+    if (!reservoirClient) throw 'Client not started'
+
+    await reservoirClient.actions
       .buyToken({
         expectedPrice,
         tokens: [token],

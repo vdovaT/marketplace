@@ -79,6 +79,7 @@ const CartMenu: FC = () => {
   const [waitingTx, setWaitingTx] = useState<boolean>(false)
   const { data: signer } = useSigner()
   const { address } = useAccount()
+  const reservoirClient = useReservoirClient()
   const { data: balance } = useBalance({
     addressOrName: address,
   })
