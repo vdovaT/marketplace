@@ -11,12 +11,13 @@ import Image from 'next/image'
 import { FaShoppingCart } from 'react-icons/fa'
 import { atom, useRecoilState, useRecoilValue } from 'recoil'
 import { setToast } from './token/setToast'
-import { useSigner } from 'wagmi'
+import { useNetwork, useSigner } from 'wagmi'
 import { GlobalContext } from 'context/GlobalState'
 import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
 import { Execute } from '@reservoir0x/reservoir-kit-client'
 import { recoilCartTotal, recoilTokensMap } from './CartMenu'
 
+const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 const SOURCE_ID = process.env.NEXT_PUBLIC_SOURCE_ID
 const NAVBAR_LOGO = process.env.NEXT_PUBLIC_NAVBAR_LOGO
 const SOURCE_ICON = process.env.NEXT_PUBLIC_SOURCE_ICON
@@ -49,6 +50,7 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
   const { dispatch } = useContext(GlobalContext)
   const cartTotal = useRecoilValue(recoilCartTotal)
   const [steps, setSteps] = useState<Execute['steps']>()
+  const { chain: activeChain } = useNetwork()
   const { data, error } = tokens
 
   // Reference: https://swr.vercel.app/examples/infinite-loading
@@ -63,6 +65,9 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
     contract: string
     tokenId: string
   }
+  if (!CHAIN_ID) return null
+
+  const isInTheWrongNetwork = Boolean(signer && activeChain?.id !== +CHAIN_ID)
 
   const execute = async (token: TokenData, expectedPrice: number) => {
     setWaitingTx(true)
@@ -241,7 +246,11 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
                           )
                         }
                       }}
-                      disabled={waitingTx || !token?.floorAskPrice}
+                      disabled={
+                        waitingTx ||
+                        !token?.floorAskPrice ||
+                        isInTheWrongNetwork
+                      }
                       className="btn-primary-fill reservoir-subtitle flex h-[40px] items-center justify-center whitespace-nowrap rounded-none text-white"
                     >
                       Buy Now
@@ -264,7 +273,7 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
                       </button>
                     ) : (
                       <button
-                        disabled={!token?.floorAskPrice}
+                        disabled={!token?.floorAskPrice || isInTheWrongNetwork}
                         onClick={() => {
                           setCartTokens([...cartTokens, token])
                         }}
