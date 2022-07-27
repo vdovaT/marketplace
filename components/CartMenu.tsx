@@ -69,6 +69,7 @@ export const recoilCartTotal = selector({
 })
 
 const CartMenu: FC = () => {
+  const client = useReservoirClient()
   const cartCount = useRecoilValue(recoilCartCount)
   const cartTotal = useRecoilValue(recoilCartTotal)
   const [cartTokens, setCartTokens] = useRecoilState(recoilCartTokens)
@@ -93,9 +94,9 @@ const CartMenu: FC = () => {
       throw 'Missing tokens to purchase'
     }
 
-    if (!reservoirClient) throw 'Client not started'
+    if (!client) throw 'Reservoir Client not initialized.'
 
-    await reservoirClient.actions
+    await client.actions
       .buyToken({
         expectedPrice: cartTotal,
         tokens: cartTokens,

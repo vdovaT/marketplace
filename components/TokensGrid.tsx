@@ -10,9 +10,10 @@ import { paths } from '@reservoir0x/reservoir-kit-client'
 import Image from 'next/image'
 import { FaShoppingCart } from 'react-icons/fa'
 import { atom, useRecoilState, useRecoilValue } from 'recoil'
-import { recoilTokensMap } from './CartMenu'
 import { useAccount, useNetwork, useSigner } from 'wagmi'
 import BuyNow from 'components/BuyNow'
+import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
+import { recoilTokensMap } from './CartMenu'
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 const SOURCE_ID = process.env.NEXT_PUBLIC_SOURCE_ID
@@ -38,6 +39,7 @@ export const recoilCartTokens = atom<Tokens>({
 })
 
 const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
+  const client = useReservoirClient()
   const [cartTokens, setCartTokens] = useRecoilState(recoilCartTokens)
   const tokensMap = useRecoilValue(recoilTokensMap)
   const { data: signer } = useSigner()
