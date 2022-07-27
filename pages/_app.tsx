@@ -25,6 +25,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { GlobalProvider } from 'context/GlobalState'
 import AnalyticsProvider from 'components/AnalyticsProvider'
 import { ThemeProvider } from 'next-themes'
+import { RecoilRoot } from 'recoil'
 import {
   darkTheme,
   lightTheme,
@@ -44,7 +45,7 @@ const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID
 
 const THEME_SWITCHING_ENABLED = process.env.NEXT_PUBLIC_THEME_SWITCHING_ENABLED
 const DARK_MODE_ENABLED = process.env.NEXT_PUBLIC_DARK_MODE
-const RESERVOIR_API_BASE = process.env.NEXT_PUBLIC_RESERVOIR_API_BASE
+const PROXY_API_BASE = process.env.NEXT_PUBLIC_PROXY_API_BASE
 const BODY_FONT_FAMILY = process.env.NEXT_PUBLIC_BODY_FONT_FAMILY || 'Inter'
 const FONT_FAMILY = process.env.NEXT_PUBLIC_FONT_FAMILY || 'Inter'
 const PRIMARY_COLOR = process.env.NEXT_PUBLIC_PRIMARY_COLOR || 'default'
@@ -112,12 +113,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         })
       )
     }
+    console.log(PROXY_API_BASE)
   }, [defaultTheme])
 
   return (
     <ReservoirKitProvider
       options={{
-        apiBase: RESERVOIR_API_BASE || '',
+        apiBase:
+          typeof window !== 'undefined'
+            ? `${window.location.origin}${PROXY_API_BASE}`
+            : '',
         disablePoweredByReservoir:
           DISABLE_POWERED_BY_RESERVOIR != undefined &&
           DISABLE_POWERED_BY_RESERVOIR != null,
@@ -125,17 +130,21 @@ function MyApp({ Component, pageProps }: AppProps) {
       theme={reservoirKitTheme}
     >
       <GlobalProvider>
-        <WagmiConfig client={client}>
-          <AnalyticsProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme={defaultTheme}
-              forcedTheme={!THEME_SWITCHING_ENABLED ? defaultTheme : undefined}
-            >
-              <Component {...pageProps} />
-            </ThemeProvider>
-          </AnalyticsProvider>
-        </WagmiConfig>
+        <RecoilRoot>
+          <WagmiConfig client={client}>
+            <AnalyticsProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme={defaultTheme}
+                forcedTheme={
+                  !THEME_SWITCHING_ENABLED ? defaultTheme : undefined
+                }
+              >
+                <Component {...pageProps} />
+              </ThemeProvider>
+            </AnalyticsProvider>
+          </WagmiConfig>
+        </RecoilRoot>
       </GlobalProvider>
     </ReservoirKitProvider>
   )
